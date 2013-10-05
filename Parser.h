@@ -12,7 +12,7 @@ bool hasMoreCommands(); //checks if there's more commands in the stream
 void resetCmd(); //resets _parser_com to NULL
 bool advance(); //advances to next available command
 int commandType(); //returns command type
-char* arg1() //returns argument 1 (all but return; arithmetic is arg 0)
+char* arg1(); //returns argument 1 (all but return; arithmetic is arg 0)
 int arg2(); //returns argument 2 (push, pop, function and call)
 int toNum(char* s); //simple tonum function for strings
 void debugString(char* s); //prints string in their ascii numbers
