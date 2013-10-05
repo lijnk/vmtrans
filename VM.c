@@ -19,7 +19,7 @@ void vmstart(char* fn)
 
 	_vm_ofp = fopen(_vm_ofn, "wb");
 
-	_vm_lbln = 0;
+	_vm_lbln = 1;
   
 	printf("%s\n", _vm_ofn);
 	vmtrans();
@@ -45,6 +45,7 @@ int vmtrans()
 
 	initParse(ibuf);
 	printf("%s\n", _vm_ifn);
+	writeInit();
 
 	while(advance())
 	{

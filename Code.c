@@ -44,7 +44,7 @@ void writeArith(char* cmd)
 		case 8:
 			fwrite("@SP\nAM=M-1\nD=M\nA=A-1\nM=D-M\n@L", 1, 29, _vm_ofp);
 			writeLabel();
-			fwrite("\nD=A\n@SP\nM=D\nA=A-1\nD=M\n@LCMP\n", 1, 29, _vm_ofp);
+			fwrite("\nD=A\n@SP\nA=M\nM=D\nA=A-1\nD=M\n@LCMP\n", 1, 33, _vm_ofp);
 			fwrite(Dict[i].hasm, 1, strlen(Dict[i].hasm), _vm_ofp);
 			fwrite("@SP\nA=M-1\nM=0\n(L", 1, 16, _vm_ofp);
 			writeLabel();
@@ -166,15 +166,19 @@ void writeLabel()
 {
 	int len = (int)log10((double)_vm_lbln) + 1;
 	int temp = _vm_lbln;
-	char* str;
-
-	str = (char*) calloc(len+1, 1);
+	char* str = (char*) calloc(len+1, sizeof(char));
 	
-	for(int i = len-1; i>=0; i++)
+	for(int i = len-1; i>=0; i--)
 	{
-		str[i] = temp % 10;
+		str[i] = (temp % 10) + '0';
 		temp /= 10;
 	}
 	fwrite(str, 1, len, _vm_ofp);
+	free(str);
+}
+
+void writeInit()
+{
+	fwrite("@8\n0;JMP\n(LCMP)\n@SP\nA=M-1\nM=-1\nA=A+1\nA=M\n0;JMP\n", 1, 47, _vm_ofp);
 }
 
