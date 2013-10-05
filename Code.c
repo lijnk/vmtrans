@@ -164,7 +164,7 @@ void writePop(char* seg, int index)
 
 void writeLabel()
 {
-	int len = int(log10((double)_vm_lbln)) + 1;
+	int len = (int)log10((double)_vm_lbln) + 1;
 	int temp = _vm_lbln;
  	char* str;
 
